@@ -1,21 +1,20 @@
 # ADR-08 Transactional database selection for application
 
-## Title
-Choosing the transcational database for the application
-## Status
-Proposed
+## Date:
+2014-09-30
+
+## Status:
+Accepted
 
 ## Context
 Since the application need to store trip data for more than 15 Million users and serve the data with in 800Milliseconds. the db should support that scalablity
 
 ## Decision
-
 We chose to use Posgresql for its Scalablity, Performance, Opensource support
 Posgresql can be scaled using read replicas for read scaliablity and also sharding or partitioning for further scalablity.
 We aslo use PosgreSQL Auroa for management and faster scalablity and peroformance
 
 ## Rationale
-
 After analyzing and comparing the features of both PostgreSQL and MySQL, we have come to the conclusion that PostgreSQL is the better option because of the following reasons:
 
 1. **Advanced features:**  PostgreSQL has a wide range of advanced features like JSON support, full-text search, and spatial data management, which are essential for our project.
@@ -30,7 +29,6 @@ After analyzing and comparing the features of both PostgreSQL and MySQL, we have
 
 
 ## Alternatives Considered
-
 The other option that we considered was MySQL. MySQL is also a highly capable database management system, but it lacks some of the advanced features that PostgreSQL offers, and its performance capacity is not as good as that of PostgreSQL.
 
 For hyper scalablity following are good options
@@ -39,6 +37,7 @@ For hyper scalablity following are good options
 
 We are not considering Oracle or SQL Server due to properiery database.
 
-## Conclusion
+![Database Comparison](images/relational_database_comparison.png)
 
+## Conclusion
 Based on our analysis, we have decided to use PostgreSQL as the preferred database management system for our upcoming project. This decision has been made after careful consideration, and we believe that it will help us achieve our project goals efficiently and effectively.
