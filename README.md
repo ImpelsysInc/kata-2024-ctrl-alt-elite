@@ -26,7 +26,7 @@ Hello! We are the Ctrl+Alt+Elite team hailing from Bangalore, India, and we are 
       - [Epic-05 :: **Technical Requirements:**](#epic-05--technical-requirements)
   - [Assumptions](#assumptions)
   - [Architecture Characteristics](#architecture-characteristics)
-    - [Architecture Styles](#architecture-styles)
+    - [Architecture Characteristics](#architecture-characteristics)
   - [Top 3 Characteristics](#top-3-characteristics)
     - [1. **Scalability**](#1-scalability)
     - [2. **Performance**](#2-performance)
@@ -69,6 +69,7 @@ Hello! We are the Ctrl+Alt+Elite team hailing from Bangalore, India, and we are 
       - [Application Load Balancers](#application-load-balancers)
       - [CloudWatch and Metrics](#cloudwatch-and-metrics)
   - [ADRs](#adrs)
+  - [Glossary](#glossary)
   - [User Journey](#user-journey)
     - [User experience (UX) design](#user-experience-ux-design)
       - [Candidate](#candidate)
@@ -77,6 +78,7 @@ Hello! We are the Ctrl+Alt+Elite team hailing from Bangalore, India, and we are 
         - [Figma Walkthrough](#figma-walkthrough-1)
       - [Admin](#admin)
         - [Figma Walkthrough](#figma-walkthrough-2)
+
 
 ## Introduction
 Discrimination in recruitment continues to be a significant global issue. Research shows that individuals from marginalized groups, such as people with disabilities, women, ethnic minorities, and members of the LGBTQ+ community, encounter various barriers in securing employment.
@@ -136,9 +138,12 @@ Our solution eliminates diversity data from the early screening stages, creating
 - Resumes will be uploaded in PDF or MS word format.
 
 ## Architecture Characteristics
+
 To ensure a successful system implementation, it's vital to prioritize key architecture characteristics. These elements guarantee reliability, availability, and responsiveness, delivering a seamless user experience.
 
-### Architecture Styles
+[ARD-19](ADRs/ADR-19-Architecture-Characteristics.md)
+
+### Architecture Characteristics
 ![Architecture Characteristics](/Images/Architecture_Characteristics_Worksheet.png)
 
 ## Top 3 Characteristics
@@ -168,13 +173,17 @@ Implementing comprehensive monitoring and observability solutions enables effici
 
 
 ## Architecture Approach
-### Architecture Style
 
+We have decided to adopt an architectural style that is primarily event-driven, with microservices as supporting components for ClearView's recruitment system. This hybrid architecture will provide a flexible and modular approach to meet the system's core requirements.
+
+[ARD-20](ADRs/ADR-20-Architecture-Style.md)
+
+### Architecture Style
 ![Architecture Style](/Images/Architecture_Styles_Worksheet.png)
 
   
 ## Event Storming
-We conducted an Event Storming technique to identify the main components of the Clearview system. This collaborative workshop helped us visualize system workflows, identify domain events, and determine the interactions between components. Through this process, we [identified the necessary components and their relationships](EventStorming/EventStorming.md), informing the design and implementation of the system. Here are the results:
+We conducted an Event Storming technique to identify the main components of the ClearView system. This collaborative workshop helped us visualize system workflows, identify domain events, and determine the interactions between components. Through this process, we [identified the necessary components and their relationships](EventStorming/EventStorming.md), informing the design and implementation of the system. Here are the results:
 
 <img src="EventStorming/images/components.png" />
 
@@ -183,11 +192,11 @@ Each microservice operates within its defined bounded context, ensuring a clear 
 ## Context
 ### Complete Overview
 
-![Overview](/C4Diagram/img/ClearViewC4%20diagramOverview.png)
+![Overview](/C4Diagram/ClearViewC4DiagramOverview.png)
 
 ### Context Diagram
 C1 in the C4 model, known as the Context view, offers a bird's-eye perspective of the system, illustrating its external interactions and dependencies. It depicts the system as a single entity surrounded by external actors, and environments with which it interacts. This view helps stakeholders understand the system's place within its broader ecosystem and the key interactions it has with its surroundings.
-![Context](/C4Diagram/img/ClearView-Context%20diagram.png)
+![Context](/C4Diagram/ClearViewContextDiagram.png)
 ClearView context diagram contains following elements:
 
 * *Candidate (Actor)*  - A  Candidate is a professional who seeking a less tedious and more equitable hiring process that values their skills and abilities. 
@@ -199,19 +208,19 @@ ClearView context diagram contains following elements:
 
 
 ## Containers
-![Containers](/C4Diagram/img/ClearViewC4%20diagramCS.png)
+![Containers](/C4Diagram/ClearViewC4ContainerDiagram.png)
 
 * *Single Page Application*  - The frontend application that provides an interface for all types of users. 
 * *API Application*  - A REST API built using microservices or macroservices, which is utilized by the frontend application. We use golang as a programming language [ADR-09](ADRs/ADR-09-Golang%20Programing%20Language.md)
 * *HR Orchechrator engine* - Handles connections with HRMS systems and facilitates the sending of unlocked resumes. [ADR-12](ADRs/ADR-12-OrchestratorEngine.md%20Integration.md)
 * *Analytics engine* - Provides an analytics interface for end users, either embedded in the Single Page Application or accessed directly by admins. It also processes events and transactional data for reporting.
 * *Event Brocker* - Stores all application events, which are used by other components in an event-driven architecture. [ADR-15](ADRs/ADR-15-Kafka%20as%20event%20broker.md)
-* *Trascational database* - A database used by the microservices or macroservices to store data such as users, roles, and resumes, etc.
-* *Object Store* - Stores resumes in their raw format in a secure way
+* *Trascational database* - A database used by the microservices or macroservices to store data such as users, roles, and resumes, etc. [ADR-08](ADRs/ADR-08-transactional-database-selection-for-application.md)
+* *Object Store* - Stores resumes in their raw format in a secure way. [ADR-18](ADRs/ADR-18-Object-Store.md)
   
 ## Components
 ### API Application
-![API Application](/C4Diagram/img/ClearViewC4ComponentDiagram.png)
+![API Application](/C4Diagram/ClearViewC4ComponentDiagram.png)
 ClearView component diagram contains following elements:
 
 * *API Gateway (module)*  -The API Gateway serves as a bridge between external clients (users or systems) and internal services. It consolidates API requests, managing tasks such as request routing, composition, and often implementing features like rate limiting, security, and monitoring.
@@ -224,10 +233,22 @@ ClearView component diagram contains following elements:
 * *Invoice API (Module)* - Invoice data will be handled by the Invoice API.
 
 ### HR Orchestrator Engine
+[ARD-12](ADRs/ADR-12-OrchestratorEngine.md)
 
-[ADR-12: Orchestrator Engine Integration using Kafka](ADRs/ADR-12-OrchestratorEngine.md%20Integration.md)
+![HR Orchestrator Engine](/C4Diagram/ClearViewHROrchestratorEngine.png)
+
+#### Orchestrator
+Receives events from Kafka, assigns tasks to the HR connector job, and sends job status updates back to Kafka to acknowledge them within the ClearView system.
+#### Connector Job
+Retrieves files from S3 storage and sends them to the employer's HR system based on their specific configuration. Pre-built connector libraries are used to streamline the development process for each HR system.
+
+#### Orchestrator
+Receives events from Kafka, assigns tasks to the HR connector job, and sends job status updates back to Kafka to acknowledge them within the ClearView system.
+#### Connector Job
+Retrieves files from S3 storage and sends them to the employer's HR system based on their specific configuration. Pre-built connector libraries are used to streamline the development process for each HR system.
+
 ### AI Engine
-![AI Engine](/C4Diagram/img/ClearViewC4AIModel.png)
+![AI Engine](/C4Diagram/ClearViewC4AIModel.png)
 
 #### Vector Database
 Any resume that is created or uploaded, along with any job posting submitted, will be parsed into specific sections (e.g., skills, experience, job role) and then stored in the Vector Database with corresponding context embeddings. Detailed information in [ADR-03](ADRs/ADR-03-Vector%20Database.md).
@@ -246,13 +267,15 @@ Finally, we will use context-driven prompts within the LLM to generate tailored 
 This approach provides high precision, reduces noise, and ensures an efficient, context-aware feedback loop for both candidates and HR professionals with near real-time feedback and highly performant candidate matching.
 
 
-### Analytics Engine
-![Analytics Engine](C4Diagram/img/ClearView%20C4Analyticsengine.png)
-Analytics Engine is used to process and organize all user, resume, job, interview, and feedback data, transforming it into a structured reporting format for analysis and insights.
+### 
+![Analytics Engine](C4Diagram/ClearView%20C4Analyticsengine.png)
+Analytics Engine is used to process and organize all user, resume, job, interview, and feedback data, transforming it into a structured reporting format for analysis and insights. 
 #### Analytic Database
 Amazon Redshift is a cloud-based data warehouse. It is specifically optimized for handling large-scale data analytics and reporting.
+[ARD-17](ADRs/ADR-17-Amazon-Redshift.md)
 #### BI Software
-Amazon QuickSight is a cloud-powered business intelligence (BI) service that integrates well with data sources like Amazon Redshift, enabling organizations to build data visualizations, dashboards, and reports as part of an analytics engine.
+Amazon QuickSight is a cloud-powered business intelligence (BI) service that integrates well with data sources like Amazon Redshift, enabling organizations to build data visualizations, dashboards, and reports as part of an analytics engine.[ARD-16](ADRs/ADR-16-Business%20Intelligence.md)
+
 #### Batch Job
 ##### Amazon Glue
 Amazon Glue is a fully managed Extract, Transform, Load (ETL) service designed to clean, transform, and load data into a data warehouse (e.g., Amazon Redshift) or a data lake (e.g., S3).
@@ -294,23 +317,42 @@ Our Krakend API Gatway uses ALB for providing public access
 Include CloudWatch for monitoring and metrics collection. Show how it integrates with other services.  
 
 ## ADRs
-- [ADR-01: Event-Driven Architecture](ADRs/ADR-01-Event%20Driven.md)
+- [ADR 01: Event-Driven Architecture](ADRs/ADR-01-Event%20Driven.md)
 - [ADR 02: Anonymizing the Resume for LLM Use and Candidate Matching](ADRs/ADR-02-Anonimizing%20Resume.md)
 - [ADR 03: Use of Vector Database](ADRs/ADR-03-Vector%20Database.md)
 - [ADR 04: Use of Knowledge Graph](ADRs/ADR-04-Knowledge%20Graph.md)
 - [ADR 05: Re-Ranking the matched documents for resume feedback and job matching](ADRs/ADR-05-Document-ReRanker.md)
 - [ADR 06: Fine-Tuning LLM for Resume Feedback and Candidate Matching](ADRs/ADR-06-LLM%20Fine%20tuning.md)
-- [ADR-07 Database selection for reporting](ADR-07-database-seclection-for-reporting.md)
-- [ADR-08 Transactional database selection for application](ADRs/ADR-08-transactional-database-selection-for-application.md)
-- [ADR-09: Golang Programing Language](ADRs/ADR-09-Golang%20Programing%20Language.md)
-- [ADR-10: React Application](ADRs/ADR-10-React%20Application.md)
-- [ADR-11: Stripe Payment System](ADRs/ADR-11-Stripe%20Payment%20System.md)
-- [ADR-12: Orchestrator Engine Integration using Kafka](ADRs/ADR-12-OrchestratorEngine.md%20Integration.md)
-- [ADR-13: SNS(Simple notification Service) Integration](ADRs/ADR-13-SNS.md)
-- [ADR-14: AWS Cloud Provider](ADRs/ADR-14-AWS%20Cloud%20Provider.md)
-- [ADR-015: Event Broker using Kafka](ADRs/ADR-15-Kafka%20as%20event%20broker.md)
-- [ADR 016: Business Intelligence Solution Implementation](ADRs/ADR-16-Business%20Intelligence.md)
-- [ADR-17: Amazon Redshift](ADRs/ADR-17-Amazon-Redshift.md)
+- [ADR 07 Database selection for reporting](ADRs/ADR-07-database-seclection-for-reporting.md)
+- [ADR 08 Transactional database selection for application](ADRs/ADR-08-transactional-database-selection-for-application.md)
+- [ADR 09: Golang Programing Language](ADRs/ADR-09-Golang%20Programing%20Language.md)
+- [ADR 10: React Application](ADRs/ADR-10-React%20Application.md)
+- [ADR 11: Stripe Payment System](ADRs/ADR-11-Stripe%20Payment%20System.md)
+- [ADR 12: Orchestration engine for HR system integration](ADRs/ADR-12-OrchestratorEngine.md)
+- [ADR 13: SNS(Simple notification Service) Integration](ADRs/ADR-13-SNS.md)
+- [ADR 14: AWS Cloud Provider](ADRs/ADR-14-AWS%20Cloud%20Provider.md)
+- [ADR 15: Event Broker using Kafka](ADRs/ADR-15-Kafka%20as%20event%20broker.md)
+- [ADR 16: Business Intelligence Solution Implementation](ADRs/ADR-16-Business%20Intelligence.md)
+- [ADR 17: Amazon Redshift](ADRs/ADR-17-Amazon-Redshift.md)
+- [ADR 18: Object Store](ADRs/ADR-18-Object-Store.md)
+- [ADR 19: Architecture Characteristics](ADRs/ADR-19-Architecture-Characteristics.md)
+- [ADR 20: Architecture Style](ADRs/ADR-20-Architecture-Style.md)
+
+## Glossary
+- **ADR** - Architecture Decision Record.
+- **ALB** - Application Load Balancer.
+- **API** - Application Programming Interface.
+- **ATS** - Applicant Tracking Systems.
+- **AWS** - Amazon Web Services.
+- **DR/BCP** - Disaster Recovery/Business Continuity Planning.
+- **EC2** - Elastic Compute Cloud.
+- **EMR** - Elastic MapReduce.
+- **HRMS** - Human Resource Management Systems.
+- **LLM** - Large Language Model.
+- **RDS** - Relational Database Service.
+- **S3** - Simple Storage Service.
+- **SNS** - Simple Notification Service.
+- **VPC** - Virtual Private Cloud.
 
 ## User Journey 
 

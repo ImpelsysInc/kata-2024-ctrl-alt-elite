@@ -1,10 +1,12 @@
-## ADR: Event-Driven Architecture with Microservices for ClearView System
+# ADR 20: Event-Driven Architecture with Microservices for ClearView System
 
-#### **Date**: 
-2024-10-15
-#### **Status**: 
-Approved
-### Context
+## Date:
+2024-09-30
+
+## Status:
+Accepted  
+
+## Context:
 The ClearView recruitment system aims to provide a robust, scalable, and high-performing platform that integrates with multiple HRMS systems while leveraging AI LLMs for resume recommendations, candidate scoring, and job matching. The following architectural characteristics are critical for the system:
 1. **Scalability** – The system must dynamically handle varying loads, including fluctuating numbers of candidates, job postings, and integrations.
 2. **Performance** – Low latency and fast processing are required for real-time AI-driven recommendations, data fetching from HRMS systems, and user interactions.

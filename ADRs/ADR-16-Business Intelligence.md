@@ -6,8 +6,7 @@
 ## Status:
 Accepted  
 
-## Context
-
+## Context:
 The organization requires a Business Intelligence (BI) solution to analyze data, generate insights, and create reports for various stakeholders. The solution must be scalable, user-friendly, and capable of integrating with existing data sources.  
 
 ### Key factors considered:

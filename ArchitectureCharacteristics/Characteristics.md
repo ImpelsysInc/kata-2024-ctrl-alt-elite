@@ -7,19 +7,19 @@ To effectively select the appropriate architecture characteristics, it is essent
 |    | Actions                   | Requirement                                                                                                                                                                                                                                                                                                                                         | Architecture Characteristics                                                                  |
 |----|---------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------|
 | 1  | Registration              | Candidate:</br><ul><li>Registration with basic personal information</li></ul>Employer: </br><ul><li>Registration with basic personal & company information </li></ul>System: </br><ul><li>Authorization & Authentication </li><li> Store details in the DB </li></ul>AI: <br/><ul><li>Fetch the company details after Employer Registers </li></ul> | Security<br/>Data Privacy<br/>Scalability<br/>Workflow                                        |
-| 2  | Upload Resume             | Candidate: </br><ul><li>Uploads the resume in PDF, word format </li></ul>System: </br><ul><li>Validate and parse the resume and store in DB </li></ul>                                                                                                                                                                                              | Security<br/>Performance<br/>Recoverability<br/>Adaptability                                  |
+| 2  | Upload Resume             | Candidate: </br><ul><li>Uploads the resume in PDF, word format </li></ul>System: </br><ul><li>Validate and parse the resume and store in DB </li></ul>                                                                                                                                                                                              | Security<br/>Performance<br/>Recoverability<br/>Adaptability<br/>Scalability                              |
 | 3  | Resume Tips               | AI: </br><ul><li>Analyze/Reanalyze and provide the Tips to improve the resume</li></ul>Candidate:</br><ul><li>Review the tips and update the resume and resubmit</li></ul>                                                                                                                                                                          | Accuracy<br/>Security<br/>Adaptability<br/>Workflow                                           |
 | 4  | Create SMART Goal & Story | AI: </br><ul><li>Create SMART Goals and Stories for each candidate </li></ul>                                                                                                                                                                                                                                                                       | Accuracy<br/>Security<br/>Consistency<br/>Adaptability                                        |
 | 5  | Submit Resume             | Candidate: </br><ul><li>Review the updates and goals/story and submit.</li></ul>System: </br><ul><li>Store the details in the DB</li></ul>                                                                                                                                                                                                          | Data Integrity                                                                                |
 | 6  | Anonymize Resume          | AI: </br><ul><li>Analyze the resume and anonymize the biased data</li></ul>                                                                                                                                                                                                                                                                         | Accuracy<br/>Consistency<br/>Security<br/>Adaptability                                        |
 | 7  | Find Match                | System:</br><ul><li> Find the resume and job match </li><li>Calculate the Similarity/Match Score </li><li>Store the details to DB </li></ul>Candidate:</br><ul><li> Review the Match and Score</li></ul>                                                                                                                                            | Accuracy <br/>Scalability <br/>Performance <br/>Data Integrity <br/>Adaptability<br/>Workflow |
 | 8  | Display Match to Employer | System:</br><ul><li> List the Match and Score to the Employer </li></ul>Employer:</br><ul><li> View the Match and Score </li></ul>                                                                                                                                                                                                                  | Accuracy <br/>Performance                                                                     |
-| 9  | Unlock Resume             | Employer:</br><ul><li>Make Payment and unlock the profile </li></ul>System:</br><ul><li>Send the actual resume to the employer</li><li>Update details in the DB </li></ul>                                                                                                                                                                          | Security                                                                                      |
+| 9  | Unlock Resume             | Employer:</br><ul><li>Make Payment and unlock the profile </li></ul>System:</br><ul><li>Send the actual resume to the employer</li><li>Update details in the DB </li></ul>                                                                                                                                                                          | Security <br/>Performance                                                                                     |
 | 10 | Mark as Hired             | Employer:</br><ul><li> Mark the candidate as Hired/Not Hired </li></ul>System:</br><ul><li>Update the details in the DB </li></ul>                                                                                                                                                                                                                  | Data Integrity                                                                                |
 | 11 | Remove Resume             | Candidate:</br><ul><li>Remove/Delete the resume from the system</li></ul>System:</br><ul><li>Mark the candidate as inactive</li><li>Remove the candidate details like Match and Score</li> <li>Update the details in the DB</li></ul>                                                                                                               | Security                                                                                      |
 | 12 | Delete Account            | Candidate:</br><ul><li>Delete the account from system </li></ul>System:</br><ul><li>Delete all the details from the system and DB </li><li>Mark the user as deleted</li></ul>                                                                                                                                                                       | Security                                                                                      |
-| 13 | HRMS Integration          | System:</br><ul><li>Integrate the HRMS systems to fetch the company details</li><li>Convert the received data to standard format</li><li>Store the standardized data to DB </li></ul>                                                                                                                                                               | Interoperability <br/>Adaptability <br/>Security<br/>Workflow                                 |
-| 14 | Admin View                | Admin:</br><ul><li>View the system analytics details</li><li>Generate reports</li></ul>                                                                                                                                                                                                                                                             | Scalability                                                                                   |
+| 13 | HRMS Integration          | System:</br><ul><li>Integrate the HRMS systems to fetch the company details</li><li>Convert the received data to standard format</li><li>Store the standardized data to DB </li></ul>                                                                                                                                                               | Interoperability <br/>Adaptability <br/>Security<br/>Workflow<br/>Scalability                 |
+| 14 | Admin View                | Admin:</br><ul><li>View the system analytics details</li><li>Generate reports</li></ul>                                                                                                                                                                                                                                                             | Scalability<br/>Performance                                                                   |
 
 
 ## Top 7 Architectural Characteristics
@@ -58,42 +58,36 @@ To effectively select the appropriate architecture characteristics, it is essent
    The system will integrate with both HRMS systems and AI LLM technologies, requiring complex workflows to handle various processes such as data fetching, scoring, and generating recommendations.
 
 # Top Three Architectural Characteristics
-1. Security
+1. Scalability
 2. Performance
 3. Interoperability
 
-## Why Security:
-Security is crucial for a recruitment system that uses AI LLM (Large Language Models) internally due to several factors:
+## Why Scalability:
+Scalability is essential for a recruitment system that leverages AI LLMs (Large Language Models) for several reasons:
 
-### 1. **Protection of Sensitive Personal Data**
-- Recruitment systems handle sensitive personal information, such as candidates' names, contact details, work history, and qualifications. Ensuring security prevents unauthorized access or breaches of this confidential data.
+### 1. **Handling Increasing Data Volumes:** 
+- As the system processes more resumes, job postings, and candidate profiles, it needs to scale to manage the growing data efficiently. Scalability ensures the system can continue functioning smoothly, even as the volume of data expands.
 
-### 2. **Compliance with Data Privacy Regulations**
-- Recruitment systems must comply with privacy laws like **GDPR** and **CCPA**, which mandate strict controls over personal data collection, storage, and sharing. Security ensures compliance and avoids legal penalties.
+### 2. **Supporting More Users and Integrations:** 
+- A recruitment platform may need to serve a large number of concurrent users (candidates, recruiters, administrators) and integrate with multiple HRMS systems. Scalability allows the system to accommodate increasing user demands and new integration requirements without performance degradation.
 
-### 3. **Preventing Unauthorized Access to AI-Generated Insights**
-- AI LLMs can generate valuable insights (e.g., resume recommendations, candidate scoring, job matching). Unauthorized access to these insights could be exploited, leading to unfair practices or breaches of trust between employers and candidates.
+### 3. **Efficient AI Model Execution:** 
+- LLMs require substantial computational resources for tasks such as resume parsing, candidate scoring, and job matching. A scalable system ensures that AI processing can expand to handle more complex tasks and larger datasets without slowing down.
 
-### 4. **Ensuring Data Integrity and Accuracy**
-- Insecure systems may lead to data manipulation or corruption, which can compromise the accuracy of AI-driven assessments, resume parsing, or recommendations, ultimately affecting hiring decisions.
+### 4. **Adaptability to Peak Usage:** 
+- Recruitment systems often experience peak loads, such as during job fairs, hiring seasons, or large-scale recruitment drives. Scalability enables the system to dynamically adjust resources to maintain performance during these high-demand periods.
 
-### 5. **Protection Against AI Model Exploitation**
-- AI models, especially LLMs, could be targeted by adversaries for reverse engineering or misuse. Strong security protocols prevent the theft or misuse of proprietary AI algorithms and models.
+### 5. **Growing with Business Needs:** 
+- As the business expands, the system may need to support additional features, new geographies, or larger client bases. Scalability ensures the platform can evolve alongside business growth without requiring a complete architectural overhaul.
 
-### 6. **Preventing Data Breaches and Reputational Damage**
-- A data breach in a recruitment system could severely damage a company's reputation, erode candidate trust, and deter future applicants from applying. Secure systems prevent such breaches.
+### 6. **Maintaining Low Latency:** 
+- To provide a smooth user experience, the system must deliver AI-driven recommendations and job matching results quickly, even as the number of requests increases. Scalability helps maintain low latency and ensures real-time responses for users.
 
-### 7. **Safeguarding Employer & Company Information**
-- Recruitment systems also store company data such as job requirements, internal hiring policies, and strategic goals. Unauthorized access to this information could result in competitive disadvantages or misuse.
+### 7. **Efficient Resource Allocation:** 
+- A scalable architecture allows the system to dynamically allocate computational resources for AI processing, optimizing cost-effectiveness by scaling up during peak times and scaling down when demand is lower.
 
-### 8. **Mitigating the Risk of AI Bias Exploitation**
-- Security mechanisms are needed to ensure that no malicious actors tamper with AI systems to introduce or exacerbate biases, ensuring fairness and equity in AI-driven recruitment processes.
-
-### 9. **Preventing Fraudulent Job Applications**
-- A secure recruitment system can prevent fraudulent applications or bots from manipulating the hiring process, ensuring only genuine candidates are considered.
-
-### 10. **Confidentiality of Recruitment Outcomes**
-- The results of AI-driven candidate assessments, job offers, and internal discussions about candidates should remain confidential and only accessible to authorized personnel. Security ensures these outcomes are protected.
+### 8. **Future-Proofing the System:** 
+- As AI models and technologies continue to evolve, a scalable recruitment system can integrate new advancements and larger models, ensuring long-term adaptability and competitiveness.
 
 ## Why Performance:
 Performance is a crucial architectural characteristic for a recruitment system that uses AI LLM for resume recommendations, candidate scoring, and job matching, especially when integrating with multiple HRMS systems. Here are several reasons why performance is vital for such a system:
@@ -184,6 +178,42 @@ Interoperability is a critical architectural characteristic for a recruitment sy
 
 ### 12. **Future-Proofing the System**
 - As new HRMS platforms emerge or existing ones evolve, an interoperable recruitment system will be able to integrate with these changes seamlessly. This future-proofing ensures that the recruitment system can stay relevant in a rapidly changing technological landscape without needing major architectural overhauls.
+
+## Security  a crucial characteristic
+Security is indeed a crucial characteristic, but it is considered an inherent requirement for any system. Therefore, we chose not to include it among the top three characteristics.
+
+### Why Security:
+Security is crucial for a recruitment system that uses AI LLM (Large Language Models) internally due to several factors:
+
+### 1. **Protection of Sensitive Personal Data**
+- Recruitment systems handle sensitive personal information, such as candidates' names, contact details, work history, and qualifications. Ensuring security prevents unauthorized access or breaches of this confidential data.
+
+### 2. **Compliance with Data Privacy Regulations**
+- Recruitment systems must comply with privacy laws like **GDPR** and **CCPA**, which mandate strict controls over personal data collection, storage, and sharing. Security ensures compliance and avoids legal penalties.
+
+### 3. **Preventing Unauthorized Access to AI-Generated Insights**
+- AI LLMs can generate valuable insights (e.g., resume recommendations, candidate scoring, job matching). Unauthorized access to these insights could be exploited, leading to unfair practices or breaches of trust between employers and candidates.
+
+### 4. **Ensuring Data Integrity and Accuracy**
+- Insecure systems may lead to data manipulation or corruption, which can compromise the accuracy of AI-driven assessments, resume parsing, or recommendations, ultimately affecting hiring decisions.
+
+### 5. **Protection Against AI Model Exploitation**
+- AI models, especially LLMs, could be targeted by adversaries for reverse engineering or misuse. Strong security protocols prevent the theft or misuse of proprietary AI algorithms and models.
+
+### 6. **Preventing Data Breaches and Reputational Damage**
+- A data breach in a recruitment system could severely damage a company's reputation, erode candidate trust, and deter future applicants from applying. Secure systems prevent such breaches.
+
+### 7. **Safeguarding Employer & Company Information**
+- Recruitment systems also store company data such as job requirements, internal hiring policies, and strategic goals. Unauthorized access to this information could result in competitive disadvantages or misuse.
+
+### 8. **Mitigating the Risk of AI Bias Exploitation**
+- Security mechanisms are needed to ensure that no malicious actors tamper with AI systems to introduce or exacerbate biases, ensuring fairness and equity in AI-driven recruitment processes.
+
+### 9. **Preventing Fraudulent Job Applications**
+- A secure recruitment system can prevent fraudulent applications or bots from manipulating the hiring process, ensuring only genuine candidates are considered.
+
+### 10. **Confidentiality of Recruitment Outcomes**
+- The results of AI-driven candidate assessments, job offers, and internal discussions about candidates should remain confidential and only accessible to authorized personnel. Security ensures these outcomes are protected.
 
 ## Summary:
 To summarize the major architectural characteristics of the recruitment system that uses AI LLM for resume recommendations, candidate scoring, and job matching while integrating multiple HRMS systems, the focus is on **Scalability**, **Performance**, and **Interoperability**. Here's how each contributes to the overall architecture:

@@ -1,6 +1,10 @@
 # ADR-07 Database selection for reporting
 
-### Status: Proposed
+## Date:
+2024-09-16
+
+### Status: 
+Accepted
 
 ## Context
 We have to build a reporting  and analytics system to collect, store, and analyze user data from our applications. This data includes user interactions, events, and other relevant information. To effectively manage and analyze this data, we need to select a suitable database management system.

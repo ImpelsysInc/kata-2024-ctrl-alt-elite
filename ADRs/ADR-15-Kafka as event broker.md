@@ -11,7 +11,7 @@ Implementing Event Broker for Event-Driven Architecture.The system is designed w
 
 ## Decision:
 We will use Apache Kafka as the event broker for handling real-time event streaming and communication between microservices in the application.
-Context:
+
 
 ## Alternatives
 Considered Options:
@@ -23,6 +23,7 @@ Good for complex routing and message queuing.
 Cons:
 Limited scalability compared to Kafka for large-scale event streaming.
 Lower throughput for large, real-time data processing tasks.
+
 AWS SQS/SNS
 Pros:
 Fully managed service; minimal operational overhead.
@@ -38,5 +39,5 @@ High throughput and low latency.
 Strong support for stream processing.
 Widely adopted and has a strong community.
 ## Cons:
-Operational complexity; requires more effort to manage and monitor.
+Operational complexity, requires more effort to manage and monitor.
 Message ordering is only guaranteed per partition.

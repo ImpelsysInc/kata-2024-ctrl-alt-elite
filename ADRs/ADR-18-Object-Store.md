@@ -1,11 +1,12 @@
-## ADR 18: Object Store for Storing Resume Data
+# ADR 18: Object Store for Storing Resume Data
 
 ## Date:
-2024-10-15
+2024-09-30
 
-## Status: Accepted
+## Status:
+Accepted  
 
-## Context
+## Context:
 The HR Orchestrator engine aims to manage resume as a key data component. Storing resume data efficiently and securely is crucial for facilitating quick access and searchability while ensuring compliance with data privacy regulations.
 
 ## Decision
